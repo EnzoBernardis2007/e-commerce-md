@@ -1,5 +1,6 @@
 export default function Signup() {
     return (
-        <p>oiiiiiiiiiiiiiiii</p>
+        <div className="h-screen bg-slate-100 flex justify-center items-center">
+        </div>
     )
 }
