@@ -1,6 +1,89 @@
+import { useState } from "react"
+import api from "../api/axiosConfig"
+
+interface SignupInfo {
+    name: string,
+    email: string,
+    password: string
+}
+
 export default function Signup() {
+    const [info, setInfo] = useState<SignupInfo>({ name: "", email: "", password: ""})
+    
+    const handleTyping = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInfo({
+        ...info,
+        [e.target.name]: e.target.value,
+        })
+    }
+
+    async function handleSubmit(e: React.FormEvent) {
+        e.preventDefault()
+
+        try {
+            const response = await api.post("/moderator", info)
+            .then(response => { 
+                console.log(response.data) 
+                if(response.status == 200) {
+                    console.log("200")
+                } else {
+                    console.log("500")
+                }
+            })
+        } catch {
+            console.log("error")
+        }
+    }
+
     return (
-        <div className="h-screen bg-slate-100 flex justify-center items-center">
+        <div className="h-screen bg-slate-200 flex justify-center items-center">
+            <form className="bg-slate-50 p-4 rounded-md" onSubmit={handleSubmit}>
+                <div className="flex flex-col mb-3">
+                    <label>Nome de usuário</label>
+                    <input
+                        className="bg-slate-200 px-3 py-1 mb-3 rounded focus:ring-2 focus:ring-purple-700"
+                        type="text"
+                        name="name"
+                        value={info.name}
+                        onChange={handleTyping}
+                        required
+                    />
+                </div>
+                <div className="flex flex-col mb-3">
+                    <label>Email</label>
+                    <input
+                        className="bg-slate-200 px-3 py-1 mb-3 rounded focus:ring-2 focus:ring-purple-700"
+                        type="email"
+                        name="email"
+                        value={info.email}
+                        onChange={handleTyping}
+                        required
+                    />
+                </div>
+                <div className="flex flex-col mb-3">
+                    <label>Password</label>
+                    <input
+                        className="bg-slate-200 px-3 py-1 mb-3 rounded focus:ring-2 focus:ring-purple-700"
+                        type="password"
+                        name="password"
+                        value={info.password}
+                        onChange={handleTyping}
+                        required
+                    />
+                </div>
+                <div className="w-full h-8 gap-4 flex justify-between">
+                    <button className="bg-purple-700 w-full text-white rounded" type="submit">
+                        Submit
+                    </button>
+                    <button
+                        className="bg-slate-200 w-full rounded"
+                        type="button"
+                        onClick={() => setInfo({ name: "", email: "", password: "" })}
+                    >
+                        Reset
+                    </button>
+                </div>
+            </form>
         </div>
     )
 }

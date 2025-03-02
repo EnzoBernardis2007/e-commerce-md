@@ -47,7 +47,7 @@ export default function Signin() {
                 </div>
                 <div className="w-full h-8 gap-4 flex justify-between">
                     <button className="bg-purple-700 w-full text-white rounded" type="submit">
-                        Submit
+                        Login
                     </button>
                     <button
                         className="bg-slate-200 w-full rounded"
