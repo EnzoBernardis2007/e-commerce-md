@@ -1,5 +1,6 @@
 import { useState } from "react"
 import api from "../api/axiosConfig"
+import { useMyContext } from "../Context/Provider"
 
 interface SignupInfo {
     name: string,
@@ -8,6 +9,7 @@ interface SignupInfo {
 }
 
 export default function Signup() {
+    const { addModal } = useMyContext()
     const [info, setInfo] = useState<SignupInfo>({ name: "", email: "", password: ""})
     
     const handleTyping = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,14 +24,10 @@ export default function Signup() {
 
         try {
             const response = await api.post("/moderator", info)
-            .then(response => { 
-                console.log(response.data) 
-                if(response.status == 200) {
-                    console.log("200")
-                } else {
-                    console.log("500")
-                }
-            })
+            
+            if(response.status == 200) {
+                addModal("Added new moderator successfully!", "success")
+            }
         } catch {
             console.log("error")
         }
