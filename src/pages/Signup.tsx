@@ -27,9 +27,11 @@ export default function Signup() {
             
             if(response.status == 200) {
                 addModal("Added new moderator successfully!", "success")
+            } else {
+                addModal("Error triyng to add a new moderator", "error")
             }
         } catch {
-            console.log("error")
+            addModal("Error triyng to add a new moderator", "error")
         }
     }
 
@@ -44,7 +46,7 @@ export default function Signup() {
                         name="name"
                         value={info.name}
                         onChange={handleTyping}
-                        required
+                        
                     />
                 </div>
                 <div className="flex flex-col mb-3">

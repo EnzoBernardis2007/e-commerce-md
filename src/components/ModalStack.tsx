@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 interface ModalInfo {
     id: number
     content: string
+    type: "success" | "error" | "info"
 }
 
 interface ModalComponentProps {
@@ -26,6 +27,19 @@ export default function ModalStack() {
 
 function Modal({ modal, removeModal }: ModalComponentProps) {
     const [progress, setProgress] = useState<number>(0)
+    let styleByType: string = "";
+
+    switch (modal.type) {
+        case "success": 
+            styleByType = "#05df72"
+            break;
+        case "error": 
+            styleByType = "#fb2c36" 
+            break;
+        case "info":
+            styleByType = "oklch(0.879 0.169 91.605)"
+            break;
+    }
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -43,12 +57,13 @@ function Modal({ modal, removeModal }: ModalComponentProps) {
     }, [modal.id, removeModal])
 
     return (
-        <div className="relative overflow-hidden bg-blue-400 min-w-36 w-fit h-10 p-4 m-4 flex items-center align-middle justify-between rounded-md">
+        <div className="relative overflow-hidden min-w-36 w-fit h-10 p-4 m-4 flex items-center align-middle justify-between rounded-md"
+        style={{ backgroundColor: `${styleByType}`}}>
             <p className="text-[12px] pr-6">{modal.content}</p>
             <FaXmark className="size-[12px]" onClick={() => removeModal(modal.id)} />
             <div className="absolute bottom-0 right-0 w-full bg-gray-200 h-1 dark:bg-gray-700">
                 <div
-                    className="bg-blue-600 h-1 transition-all duration-100"
+                    className="bg-slate-50 h-1 transition-all duration-100"
                     style={{ width: `${progress}%` }}
                 ></div>
             </div>
