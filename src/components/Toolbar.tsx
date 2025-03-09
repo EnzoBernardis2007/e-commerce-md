@@ -1,6 +1,6 @@
 export default function Toolbar() {
     return (
-        <aside className="bg-slate-300 h-screen w-fit p-6">
+        <aside className="bg-slate-300 h-full w-fit p-6">
             <div className="flex gap-4 mb-6">
                 <div className="flex flex-col">
                     <label className="mb-2">Name</label>
