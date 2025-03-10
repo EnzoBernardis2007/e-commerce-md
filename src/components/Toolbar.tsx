@@ -1,4 +1,6 @@
 import { useState } from "react"
+import api from "../api/axiosConfig"
+import { useMyContext } from "../Context/Provider"
 
 interface ProductProp {
     name: string
@@ -8,6 +10,7 @@ interface ProductProp {
 }
 
 export default function Toolbar() {
+    const { addModal } = useMyContext()
     const [form, setForm] = useState<ProductProp>({
         name: "",
         description: "",
@@ -26,6 +29,16 @@ export default function Toolbar() {
 
     const clearForm = () => {
         setForm({ name: "", description: "", price: 0, quantity: 0 })
+    }
+
+    const handleSubmit = async () => {
+        const response = await api.post("/product", form)
+
+        if(response.status == 200) {
+            addModal("Succeffuly added a new product", "success")
+        } else {
+            addModal("Error triyng to add a new product", "error")
+        }
     }
 
     return (
@@ -73,7 +86,8 @@ export default function Toolbar() {
                 />
             </div>
             <div className="flex w-full h-12 gap-4">
-                <button className="bg-purple-700 w-full text-slate-50 rounded-md cursor-pointer">Add</button>
+                <button className="bg-purple-700 w-full text-slate-50 rounded-md cursor-pointer"
+                onClick={handleSubmit}>Add</button>
                 <button
                     className="bg-slate-400 w-full text-slate-50 rounded-md cursor-pointer"
                     onClick={clearForm}
