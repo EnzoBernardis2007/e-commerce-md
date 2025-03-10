@@ -3,7 +3,7 @@ import Toolbar from "../components/Toolbar"
 import api from "../api/axiosConfig"
 import { useMyContext } from "../Context/Provider"
 
-interface ProductsModel {
+interface ProductModel {
     id: number
     name: string
     description: string
@@ -14,7 +14,7 @@ interface ProductsModel {
 
 export default function Product() {
     const { addModal } = useMyContext()
-    const [products, setProducts] = useState<ProductsModel[]>([])
+    const [products, setProducts] = useState<ProductModel[]>([])
 
     useEffect(() => {
         const getAllProducts = async () => {
