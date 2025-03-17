@@ -4,6 +4,7 @@ import Signin from '../pages/Signin'
 import Signup from '../pages/Signup'
 import Layout from '../pages/Layout'
 import Product from '../pages/Product'
+import Moderator from '../pages/Moderator'
 
 export default function Navigation() {
   return (
@@ -13,7 +14,8 @@ export default function Navigation() {
         <Route path='signin' element={ <Signin /> }/>
         <Route path='signup' element={ <Signup /> }/>
         <Route path='layout' element={ <Layout /> }>
-          <Route path='product' element={ <Product /> } />
+          <Route index path='product' element={ <Product /> } />
+          <Route path='moderator' element={ <Moderator /> } />
         </Route>
       </Routes>
     </BrowserRouter>
