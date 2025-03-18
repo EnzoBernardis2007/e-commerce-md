@@ -32,11 +32,15 @@ export default function Toolbar() {
     }
 
     const handleSubmit = async () => {
-        const response = await api.post("/product", form)
-
-        if(response.status == 200) {
-            addModal("Succeffuly added a new product", "success")
-        } else {
+        try {
+            const response = await api.post("/product", form)
+            
+            if(response.status == 200) {
+                addModal("Succeffuly added a new product", "success")
+            } else {
+                addModal("Error triyng to add a new product", "error")
+            }
+        } catch {
             addModal("Error triyng to add a new product", "error")
         }
     }

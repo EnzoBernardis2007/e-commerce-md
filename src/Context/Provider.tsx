@@ -20,7 +20,6 @@ export const MyProvider = ({ children }: { children: ReactNode }) => {
     const addModal = (content: string, type: "success" | "error" | "info") => {
         const id = Date.now()
         setModals((prevModals) => [...prevModals, { id, content, type }])
-        console.log("add")
     }
 
     const removeModal = (id: number) => {
